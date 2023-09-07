@@ -39,7 +39,7 @@ async function updateCollection(postmanApiKey, postmanFile, collectionId) {
     new Postman(postmanApiKey).updateCollection(postmanFile, collectionId);
 }
 
-async function createCollection(postmanApiKey, postmanFile, collectionId) {
+async function createCollection(postmanApiKey, postmanFile, workspaceId) {
     new Postman(postmanApiKey).createCollection(postmanFile, workspaceId);
 }
 
