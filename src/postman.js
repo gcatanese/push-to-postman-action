@@ -61,7 +61,7 @@ export class Postman {
 
     getFileAsJson(postmanFile) {
         const collection = JSON.parse(fs.readFileSync(postmanFile, 'utf8'));
-        return json = JSON.stringify({
+        return JSON.stringify({
             "collection": collection,
         });
 
