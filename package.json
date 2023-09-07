@@ -4,12 +4,18 @@
   "description": "Push collections to Postman",
   "main": "index.js",
   "type": "module",
+  "scripts": {
+    "build": "ncc build index.js --license licenses.txt",
+    "git": "git add dist/* && git commit -m 'Build dist' ",
+    "postgit": "git push --all"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
+    "@vercel/ncc": "^0.38.0",
     "axios": "^1.5.0"
   }
 }
