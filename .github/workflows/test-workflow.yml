@@ -1,0 +1,31 @@
+name: Test workflow
+
+on: 
+  workflow_dispatch:
+    inputs:
+      postmanFile:
+        description: 'Postman json filepath'     
+        required: true
+        default: 'test/postman.json'
+      workspaceId:
+        description: 'Postman workspace ID'     
+        required: false
+      collectionId:
+        description: 'Postman collection ID'     
+        required: false
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test 
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: push-to-postman-action
+        id: process
+        uses: gcatanese/push-to-postman-action@main
+        with:
+          postman-key: ${{ secrets.POSTMAN_API_KEY }}
+          postman-file: github.event.inputs.postmanFile
+          workspace-id: github.event.inputs.workspaceId
+          collection-id: github.event.inputs.collectionId
