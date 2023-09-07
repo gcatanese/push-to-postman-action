@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "ncc build index.js --license licenses.txt",
+    "build": "ncc build src/index.js --license licenses.txt",
     "git": "git add dist/* && git commit -m 'Build dist' ",
     "postgit": "git push --all"
   },
