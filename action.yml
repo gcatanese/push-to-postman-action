@@ -1,0 +1,18 @@
+name: 'Push to Postman'
+description: 'Publish collections to Postman: it updates an existing collection if found otherwise it creates a new one'
+inputs:
+  postman-key:
+    description: 'Your Postman API key'
+    required: true
+  postman-file:
+    description: 'Postman JSON file'
+    required: true
+  workspace-id:
+    description: 'The Postman workspace ID'
+    required: false
+  collection-id:
+    description: 'The Postman collection ID'
+    required: false
+runs:
+  using: 'node16'
+  main: 'src/index.js'
