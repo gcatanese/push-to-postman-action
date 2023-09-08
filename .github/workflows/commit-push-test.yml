@@ -9,8 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Test 
     steps:
-      - uses: actions/checkout@v3
-
+      - uses: actions/checkout@v4
+        with:
+            fetch-depth: 2      
       - name: Get changed JSON files in a given folder
         id: changed-json-files-in-folder
         uses: tj-actions/changed-files@v39
