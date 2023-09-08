@@ -19,7 +19,7 @@ jobs:
         with:
           files: test/*.json
       - name: List all changed files
-        run: echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+        run: echo '${{ steps.changed-files-specific.outputs.all_changed_files }}'
       - name: push-to-postman-action
         id: process
         uses: gcatanese/push-to-postman-action@main
