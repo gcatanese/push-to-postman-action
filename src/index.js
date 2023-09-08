@@ -21,7 +21,11 @@ async function init () {
         const postmanFile = core.getInput('postman-file');
         console.log(postmanFile);
         if(!postmanFile) {
-            throw new Error("Missing input postman-file");
+            core.info('No Postman file(s) provided');
+            core.setOutput('message', 'No Postman file(s) provided');
+            core.setOutput('status', 'success');
+
+            return;
         }
 
         const workspaceId = core.getInput('workspace-id');
