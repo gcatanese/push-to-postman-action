@@ -9692,11 +9692,10 @@ class Postman {
             },
         };
 
-        console.log("Push (post) to Postman");
+        console.log("Push (post) to Postman..");
 
         lib_axios.post(createCollectionUrl, this.getFileAsJson(postmanFile), config)
             .then(res => {
-                console.log(`statusCode: ${res.statusCode}`)
                 console.log(res.data)
             })
             .catch(error => {
@@ -9716,11 +9715,10 @@ class Postman {
             },
         };
 
-        console.log("Push (put) to Postman");
+        console.log("Push (put) to Postman..");
 
         lib_axios.put(updateCollectionUrl, this.getFileAsJson(postmanFile), config)
             .then(res => {
-                console.log(`statusCode: ${res.statusCode}`)
                 console.log(res.data)
             })
             .catch(error => {
@@ -9761,6 +9759,7 @@ async function init () {
         }
 
         const postmanFile = core.getInput('postman-file');
+        console.log(postmanFile);
         if(!postmanFile) {
             throw new Error("Missing input postman-file");
         }
