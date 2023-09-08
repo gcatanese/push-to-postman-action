@@ -10,9 +10,9 @@ on:
       workspaceId:
         description: 'Postman workspace ID'     
         required: false
-      collectionId:
-        description: 'Postman collection ID'     
-        required: false
+      # collectionId:
+      #   description: 'Postman collection ID'     
+      #   required: false
 jobs:
   test:
     runs-on: ubuntu-latest
