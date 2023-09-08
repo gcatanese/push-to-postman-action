@@ -20,12 +20,11 @@ export class Postman {
             },
         };
 
-        console.log("Push (post) to Postman");
+        console.log("Push (post) to Postman..");
 
         axios
             .post(createCollectionUrl, this.getFileAsJson(postmanFile), config)
             .then(res => {
-                console.log(`statusCode: ${res.statusCode}`)
                 console.log(res.data)
             })
             .catch(error => {
@@ -45,12 +44,11 @@ export class Postman {
             },
         };
 
-        console.log("Push (put) to Postman");
+        console.log("Push (put) to Postman..");
 
         axios
             .put(updateCollectionUrl, this.getFileAsJson(postmanFile), config)
             .then(res => {
-                console.log(`statusCode: ${res.statusCode}`)
                 console.log(res.data)
             })
             .catch(error => {
