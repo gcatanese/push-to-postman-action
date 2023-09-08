@@ -1,0 +1,28 @@
+name: Test push after commit
+
+on: 
+  push:
+    paths:
+      - 'test/*.json'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test 
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get changed JSON files in a given folder
+        id: changed-json-files-in-folder
+        uses: tj-actions/changed-files@v39
+        with:
+          files: test/*.{json}  
+      - name: List all changed files
+        run: echo '${{ steps.changed-files.outputs.all_changed_files }}'          
+      - name: push-to-postman-action
+        id: process
+        uses: gcatanese/push-to-postman-action@main
+        with:
+          goal: create
+          postman-key: ${{ secrets.POSTMAN_API_KEY }}
+          postman-file: ${{ steps.changed-files.outputs.all_changed_files }}
+          workspace-id: ${{ secrets.POSTMAN_WORKSPACE_ID }}
