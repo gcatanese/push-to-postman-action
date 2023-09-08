@@ -63,7 +63,7 @@ jobs:
         with:
             fetch-depth: 0
       - name: Get changed JSON files in a given folder
-        id: changed-json-files-in-folder
+        id: changed-json-files
         uses: tj-actions/changed-files@v39
         with:
           files: test/*.json
@@ -73,6 +73,6 @@ jobs:
         with:
           goal: create
           postman-key: ${{ secrets.POSTMAN_API_KEY }}
-          postman-file: ${{ steps.changed-json-files-in-folder.outputs.all_changed_and_modified_files }}
+          postman-file: ${{ steps.changed-json-files.outputs.all_changed_and_modified_files }}
           workspace-id: ${{ secrets.POSTMAN_WORKSPACE_ID }}
 ```
