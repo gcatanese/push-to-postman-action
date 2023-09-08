@@ -18,7 +18,7 @@ jobs:
       - name: Get changed JSON files in a given folder
         id: changed-json-files-in-folder
         uses: tj-actions/changed-files@v39
-         with:
+        with:
           files: test/*.json
           path: 'push-to-postman-action'
       - name: List all changed files
