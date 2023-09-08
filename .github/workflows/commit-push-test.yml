@@ -15,11 +15,11 @@ jobs:
             fetch-depth: 0
       - name: Get changed JSON files in a given folder
         id: changed-json-files-in-folder
-        uses: tj-actions/changed-files@v39
+        uses: tj-actions/changed-files@v35
         with:
           files: test/*.json
       - name: List all changed files
-        run: echo '${{ steps.changed-files-specific.outputs.all_changed_files }}'          
+        run: echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
       - name: push-to-postman-action
         id: process
         uses: gcatanese/push-to-postman-action@main
