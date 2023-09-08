@@ -9697,7 +9697,7 @@ class Postman {
         lib_axios.post(createCollectionUrl, this.getFileAsJson(postmanFile), config)
             .then(res => {
                 console.log(`statusCode: ${res.statusCode}`)
-                console.log(res)
+                console.log(res.data)
             })
             .catch(error => {
                 throw error;
