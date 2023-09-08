@@ -9683,6 +9683,8 @@ class Postman {
 
     createCollection(postmanFile, workspaceId) {
 
+        console.log("Pushing (post) to Postman..");
+
         const createCollectionUrl = postman_URL + "?workspace=" + workspaceId;
 
         const config = {
@@ -9697,7 +9699,6 @@ class Postman {
         for (const file of files) {
 
             if (this.isJsonFile(file)) {
-                console.log("Pushing (post) " + file);
                 lib_axios.post(createCollectionUrl, this.getFileAsJson(file), config)
                     .then(res => {
                         console.log(res.data)
@@ -9714,6 +9715,8 @@ class Postman {
 
     updateCollection(postmanFile, collectionId) {
 
+        console.log("Pushing (put) to Postman..");
+
         const updateCollectionUrl = postman_URL + "/" + collectionId;
 
         const config = {
@@ -9728,7 +9731,6 @@ class Postman {
         for (const file of files) {
 
             if (this.isJsonFile(file)) {
-                console.log("Pushing (put) " + file);            
                 lib_axios.put(updateCollectionUrl, this.getFileAsJson(file), config)
                     .then(res => {
                         console.log(res.data)
@@ -9780,7 +9782,7 @@ async function init () {
         }
 
         const postmanFile = core.getInput('postman-file');
-        console.log(postmanFile);
+        console.log("Postman file(s): " + postmanFile);
         if(!postmanFile) {
             core.info('No Postman file(s) provided');
             core.setOutput('message', 'No Postman file(s) provided');
