@@ -2,8 +2,9 @@ name: Test push after commit
 
 on: 
   push:
-    paths:
-      - 'test/*.json'
+    branches:
+      - main
+
 jobs:
   test:
     runs-on: ubuntu-latest
