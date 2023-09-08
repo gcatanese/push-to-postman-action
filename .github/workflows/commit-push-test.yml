@@ -15,16 +15,16 @@ jobs:
             fetch-depth: 0
       - name: Get changed JSON files in a given folder
         id: changed-json-files-in-folder
-        uses: tj-actions/changed-files@v35
+        uses: tj-actions/changed-files@v39
         with:
           files: test/*.json
       - name: List all changed files
-        run: echo '${{ steps.changed-files-specific.outputs.all_changed_files }}'
+        run: echo '${{ steps.changed-json-files-in-folder.outputs.all_changed_files }}'
       - name: push-to-postman-action
         id: process
         uses: gcatanese/push-to-postman-action@main
         with:
           goal: create
           postman-key: ${{ secrets.POSTMAN_API_KEY }}
-          postman-file: ${{ steps.changed-files-specific.outputs.all_changed_files }}
+          postman-file: ${{ steps.changed-json-files-in-folder.outputs.all_changed_files }}
           workspace-id: ${{ secrets.POSTMAN_WORKSPACE_ID }}
