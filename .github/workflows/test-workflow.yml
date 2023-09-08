@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: push-to-postman-action
-        id: process
+        id: push-to-postman
         uses: gcatanese/push-to-postman-action@main
         with:
           goal: create
