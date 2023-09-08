@@ -9692,15 +9692,23 @@ class Postman {
             },
         };
 
-        console.log("Push (post) to Postman..");
+        const files = postmanFile.split(' ');
 
-        lib_axios.post(createCollectionUrl, this.getFileAsJson(postmanFile), config)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(error => {
-                throw error;
-            })
+        for (const file of files) {
+
+            if (this.isJsonFile(file)) {
+                console.log("Pushing (post) " + file);
+                lib_axios.post(createCollectionUrl, this.getFileAsJson(file), config)
+                    .then(res => {
+                        console.log(res.data)
+                    })
+                    .catch(error => {
+                        throw error;
+                    })
+            } else {
+                console.log("Skip " + file);
+            }
+        }
 
     }
 
@@ -9715,16 +9723,29 @@ class Postman {
             },
         };
 
-        console.log("Push (put) to Postman..");
+        const files = postmanFile.split(' ');
 
-        lib_axios.put(updateCollectionUrl, this.getFileAsJson(postmanFile), config)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(error => {
-                throw error;
-            })
+        for (const file of files) {
 
+            if (this.isJsonFile(file)) {
+                console.log("Pushing (put) " + file);            
+                lib_axios.put(updateCollectionUrl, this.getFileAsJson(file), config)
+                    .then(res => {
+                        console.log(res.data)
+                    })
+                    .catch(error => {
+                        throw error;
+                    })
+                } else {
+                    console.log("Skip " + file);
+                }
+    
+        }
+
+    }
+
+    isJsonFile(file) {
+        return file.endsWith(".json");
     }
 
     getFileAsJson(postmanFile) {
@@ -9761,7 +9782,11 @@ async function init () {
         const postmanFile = core.getInput('postman-file');
         console.log(postmanFile);
         if(!postmanFile) {
-            throw new Error("Missing input postman-file");
+            core.info('No Postman file(s) provided');
+            core.setOutput('message', 'No Postman file(s) provided');
+            core.setOutput('status', 'success');
+
+            return;
         }
 
         const workspaceId = core.getInput('workspace-id');
