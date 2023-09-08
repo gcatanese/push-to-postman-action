@@ -20,16 +20,24 @@ export class Postman {
             },
         };
 
-        console.log("Push (post) to Postman..");
+        const files = postmanFile.split(' ');
 
-        axios
-            .post(createCollectionUrl, this.getFileAsJson(postmanFile), config)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(error => {
-                throw error;
-            })
+        for (const file of files) {
+
+            if (this.isJsonFile(file)) {
+                console.log("Pushing (post) " + file);
+                axios
+                    .post(createCollectionUrl, this.getFileAsJson(file), config)
+                    .then(res => {
+                        console.log(res.data)
+                    })
+                    .catch(error => {
+                        throw error;
+                    })
+            } else {
+                console.log("Skip " + file);
+            }
+        }
 
     }
 
@@ -44,17 +52,30 @@ export class Postman {
             },
         };
 
-        console.log("Push (put) to Postman..");
+        const files = postmanFile.split(' ');
 
-        axios
-            .put(updateCollectionUrl, this.getFileAsJson(postmanFile), config)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(error => {
-                throw error;
-            })
+        for (const file of files) {
 
+            if (this.isJsonFile(file)) {
+                console.log("Pushing (put) " + file);            
+                axios
+                    .put(updateCollectionUrl, this.getFileAsJson(file), config)
+                    .then(res => {
+                        console.log(res.data)
+                    })
+                    .catch(error => {
+                        throw error;
+                    })
+                } else {
+                    console.log("Skip " + file);
+                }
+    
+        }
+
+    }
+
+    isJsonFile(file) {
+        return file.endsWith(".json");
     }
 
     getFileAsJson(postmanFile) {
