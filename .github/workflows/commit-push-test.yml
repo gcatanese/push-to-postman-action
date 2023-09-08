@@ -21,10 +21,10 @@ jobs:
         with:
           files_yaml: |
             json:
-              - '**/*.json'
+              - '*.json'
             yaml:
-              - '**/*.yaml'
-              - '**/*.yml'
+              - '*.yaml'
+              - '*.yml'
       - name: List all changed files
         run: echo '${{ steps.changed-json-files-in-folder.outputs.all_changed_and_modified_files }}'
       - name: push-to-postman-action
