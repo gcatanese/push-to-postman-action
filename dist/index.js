@@ -9721,7 +9721,7 @@ class Postman {
         lib_axios.put(updateCollectionUrl, this.getFileAsJson(postmanFile), config)
             .then(res => {
                 console.log(`statusCode: ${res.statusCode}`)
-                console.log(res)
+                console.log(res.data)
             })
             .catch(error => {
                 throw error;
