@@ -44,7 +44,7 @@ Update existing Postman collection using `workflow_dispatch`
 
 ### Create new collection after git push
 
-Update existing Postman collection on `push`
+Create new Postman collection on `push`
 
 ```yaml
 on: 
