@@ -19,7 +19,7 @@ async function init () {
         }
 
         const postmanFile = core.getInput('postman-file');
-        console.log(postmanFile);
+        console.log("Postman file(s): " + postmanFile);
         if(!postmanFile) {
             core.info('No Postman file(s) provided');
             core.setOutput('message', 'No Postman file(s) provided');

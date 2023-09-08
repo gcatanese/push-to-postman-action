@@ -11,6 +11,8 @@ export class Postman {
 
     createCollection(postmanFile, workspaceId) {
 
+        console.log("Pushing (post) to Postman..");
+
         const createCollectionUrl = URL + "?workspace=" + workspaceId;
 
         const config = {
@@ -25,7 +27,6 @@ export class Postman {
         for (const file of files) {
 
             if (this.isJsonFile(file)) {
-                console.log("Pushing (post) " + file);
                 axios
                     .post(createCollectionUrl, this.getFileAsJson(file), config)
                     .then(res => {
@@ -43,6 +44,8 @@ export class Postman {
 
     updateCollection(postmanFile, collectionId) {
 
+        console.log("Pushing (put) to Postman..");
+
         const updateCollectionUrl = URL + "/" + collectionId;
 
         const config = {
@@ -57,7 +60,6 @@ export class Postman {
         for (const file of files) {
 
             if (this.isJsonFile(file)) {
-                console.log("Pushing (put) " + file);            
                 axios
                     .put(updateCollectionUrl, this.getFileAsJson(file), config)
                     .then(res => {
