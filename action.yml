@@ -1,6 +1,9 @@
 name: 'Push to Postman'
 description: 'Publish collections to Postman: it updates an existing collection if found otherwise it creates a new one'
 inputs:
+  goal:
+    description: 'Action to perform (create, update, etc..)'
+    required: true
   postman-key:
     description: 'Your Postman API key'
     required: true

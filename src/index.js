@@ -8,6 +8,11 @@ async function init () {
 
     try {
 
+        const goal = core.getInput('goal');
+        if(!goal) {
+            throw new Error("Missing input goal");
+        }
+
         const postmanApiKey = core.getInput('postman-key');
         if(!postmanApiKey) {
             throw new Error("Missing input postman-key");
@@ -20,14 +25,21 @@ async function init () {
 
         const workspaceId = core.getInput('workspace-id');
         const collectionId = core.getInput('collection-id');
-        if(!workspaceId && !collectionId) {
-            throw new Error("Provide either collection-id or workspace-id");
+
+        if(goal == 'create' && !workspaceId) {
+            throw new Error("Goal <create> requires workspace-id");
         }
 
-        if(collectionId) {
-            updateCollection(postmanApiKey, postmanFile, collectionId);
-        } else if (workspaceId) {
+        if(goal == 'update' && !collectionId) {
+            throw new Error("Goal <update> requires collection-id");
+        }
+
+        if(goal == 'create') {
             createCollection(postmanApiKey, postmanFile, workspaceId);
+        } else if (goal == 'update') {
+            updateCollection(postmanApiKey, postmanFile, collectionId);
+        } else {
+            throw new Error("Unrecognised goal: " + goal);
         }
 
     } catch (error) {

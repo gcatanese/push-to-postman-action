@@ -25,7 +25,8 @@ jobs:
         id: process
         uses: gcatanese/push-to-postman-action@main
         with:
+          goal: create
           postman-key: ${{ secrets.POSTMAN_API_KEY }}
           postman-file: ${{ github.event.inputs.postmanFile }}
           workspace-id: ${{ github.event.inputs.workspaceId }}
-          collection-id: ${{ github.event.inputs.collectionId }}
+          # collection-id: ${{ github.event.inputs.collectionId }}
