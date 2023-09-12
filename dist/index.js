@@ -9783,8 +9783,6 @@ class Postman {
                                     create = false;
                                     collectionId = collection.uid
                                 }
-                                console.log(`Collection Name: ${collection.name}`);
-                                console.log(`Collection ID: ${collection.uid}`);
                             });
                         } else {
                             throw error('Error retrieving collections:', response.statusText);
