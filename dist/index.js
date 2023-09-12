@@ -9688,9 +9688,12 @@ class Postman {
 
         console.log("Pushing (post) to Postman..");
 
-        const createCollectionUrl = postman_URL + "?workspace=" + workspaceId;
+        const createCollectionUrl = postman_URL;
 
         const config = {
+            params: {
+                workspace: 'workspaceId'
+            },
             headers: {
                 'Content-Type': 'application/json',
                 'X-API-Key': this.postmanApiKey,
