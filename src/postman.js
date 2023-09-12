@@ -88,10 +88,8 @@ export class Postman {
         // get collections
         const getCollectionsUrl = URL + "?workspace=" + workspaceId;
 
-        const config = {
-            headers: {
-                'X-API-Key': this.postmanApiKey,
-            },
+        const headers = {
+            'X-API-Key': this.postmanApiKey
         };
 
 
@@ -105,7 +103,7 @@ export class Postman {
                 let collectionId = -1;
 
                 axios
-                    .get(getCollectionsUrl, { config })
+                    .get(getCollectionsUrl, { headers })
                     .then((response) => {
                         if (response.status === 200) {
                             const collections = response.data.collections;
