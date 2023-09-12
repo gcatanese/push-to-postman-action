@@ -14,9 +14,12 @@ export class Postman {
 
         console.log("Pushing (post) to Postman..");
 
-        const createCollectionUrl = URL + "?workspace=" + workspaceId;
+        const createCollectionUrl = URL;
 
         const config = {
+            params: {
+                workspace: 'workspaceId'
+            },
             headers: {
                 'Content-Type': 'application/json',
                 'X-API-Key': this.postmanApiKey,
