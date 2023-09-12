@@ -9745,7 +9745,7 @@ class Postman {
 
     }
 
-    createOrUpdateCollection(postmanFile, workspaceId) {
+    async createOrUpdateCollection(postmanFile, workspaceId) {
 
         // get title
         const json = this.loadJson(postmanFile);
@@ -9774,7 +9774,7 @@ class Postman {
                 var create = true;
                 var collectionId = -1;
 
-                lib_axios.get(postman_URL, config)
+                await lib_axios.get(postman_URL, config)
                     .then((response) => {
                         if (response.status === 200) {
                             const collections = response.data.collections;
@@ -9890,15 +9890,15 @@ async function init () {
     }
 }
 
-function updateCollection(postmanApiKey, postmanFile, collectionId) {
+async function updateCollection(postmanApiKey, postmanFile, collectionId) {
     new Postman(postmanApiKey).updateCollection(postmanFile, collectionId);
 }
 
-function createCollection(postmanApiKey, postmanFile, workspaceId) {
+async function createCollection(postmanApiKey, postmanFile, workspaceId) {
     new Postman(postmanApiKey).createCollection(postmanFile, workspaceId);
 }
 
-function createOrUpdateCollection(postmanApiKey, postmanFile, workspaceId) {
+async function createOrUpdateCollection(postmanApiKey, postmanFile, workspaceId) {
     new Postman(postmanApiKey).createOrUpdateCollection(postmanFile, workspaceId);
 }
 
