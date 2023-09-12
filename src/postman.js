@@ -92,14 +92,13 @@ export class Postman {
             'X-API-Key': this.postmanApiKey
         };
 
-
         const files = postmanFile.split(' ');
 
         for (const file of files) {
 
             if (this.isJsonFile(file)) {
 
-                let create = true;
+                var create = true;
                 let collectionId = -1;
 
                 axios
@@ -126,11 +125,11 @@ export class Postman {
         }
 
         console.log(create)
-        // if(create) {
-        //     this.createCollection(postmanFile, workspaceId);
-        // } else {
-        //     this.updateCollection(postmanFile, collectionId);
-        // }
+        if(create) {
+            this.createCollection(postmanFile, workspaceId);
+        } else {
+            this.updateCollection(postmanFile, collectionId);
+        }
 
     }
 
