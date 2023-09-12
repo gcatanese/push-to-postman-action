@@ -9760,10 +9760,8 @@ class Postman {
         // get collections
         const getCollectionsUrl = postman_URL + "?workspace=" + workspaceId;
 
-        const config = {
-            headers: {
-                'X-API-Key': this.postmanApiKey,
-            },
+        const headers = {
+            'X-API-Key': this.postmanApiKey
         };
 
 
@@ -9776,7 +9774,7 @@ class Postman {
                 let create = true;
                 let collectionId = -1;
 
-                lib_axios.get(getCollectionsUrl, { config })
+                lib_axios.get(getCollectionsUrl, { headers })
                     .then((response) => {
                         if (response.status === 200) {
                             const collections = response.data.collections;
