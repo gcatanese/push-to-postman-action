@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { create } from 'domain';
 import fs from "fs";
 
 const URL = "https://api.getpostman.com/collections";
@@ -18,7 +17,7 @@ export class Postman {
 
         const config = {
             params: {
-                workspace: 'workspaceId'
+                'workspace': workspaceId,
             },
             headers: {
                 'Content-Type': 'application/json',
