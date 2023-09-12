@@ -14,9 +14,9 @@ Add the push-to-postman action and set the required inputs
 
 ### Goals
 
-`create` always creates a new collection (in a given workspace)
-`update` updates an existing collection (given its id)
-`createOrUpdate` update an existing collection when the title matches, otherwise it creates a new one
+`create` always creates a new collection (in a given workspace)   
+`update` updates an existing collection (given its id)   
+`createOrUpdate` update an existing collection when the title matches, otherwise it creates a new one  
 
 ### Create new collection
 
