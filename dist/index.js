@@ -9685,8 +9685,6 @@ class Postman {
 
         console.log("Pushing (post) to Postman..");
 
-        const createCollectionUrl = postman_URL;
-
         const config = {
             params: {
                 'workspace': workspaceId,
@@ -9702,7 +9700,7 @@ class Postman {
         for (const file of files) {
 
             if (this.isJsonFile(file)) {
-                lib_axios.post(createCollectionUrl, this.getFileAsJson(file), config)
+                lib_axios.post(postman_URL, this.getFileAsJson(file), config)
                     .then(res => {
                         console.log(res.data)
                     })
@@ -9720,8 +9718,6 @@ class Postman {
 
         console.log("Pushing (put) to Postman..");
 
-        const updateCollectionUrl = postman_URL + "/" + collectionId;
-
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -9734,7 +9730,7 @@ class Postman {
         for (const file of files) {
 
             if (this.isJsonFile(file)) {
-                lib_axios.put(updateCollectionUrl, this.getFileAsJson(file), config)
+                lib_axios.put(postman_URL + "/" + collectionId, this.getFileAsJson(file), config)
                     .then(res => {
                         console.log(res.data)
                     })
@@ -9757,12 +9753,17 @@ class Postman {
         const title = json.info.name;
         console.log("Collection title: " + title)
 
-        // get collections
-        const getCollectionsUrl = postman_URL + "?workspace=" + workspaceId;
+        // get all collections
 
-        const headers = {
-            'X-API-Key': this.postmanApiKey
+        const config = {
+            params: {
+                'workspace': workspaceId,
+            },
+            headers: {
+                'X-API-Key': this.postmanApiKey,
+            },
         };
+
 
         const files = postmanFile.split(' ');
 
@@ -9771,9 +9772,9 @@ class Postman {
             if (this.isJsonFile(file)) {
 
                 var create = true;
-                let collectionId = -1;
+                var collectionId = -1;
 
-                lib_axios.get(getCollectionsUrl, { headers })
+                lib_axios.get(postman_URL, config)
                     .then((response) => {
                         if (response.status === 200) {
                             const collections = response.data.collections;
