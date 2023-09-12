@@ -77,15 +77,13 @@ export class Postman {
 
     }
 
-    createOrUpdateCollection(postmanFile, collectionId) {
-
-        console.log("createOrUpdateCollection");
+    createOrUpdateCollection(postmanFile, workspaceId) {
 
         // get title
         const json = this.loadJson(postmanFile);
 
         const title = json.info.name;
-        console.log("Collection title " + title)
+        console.log("Collection title: " + title)
 
         // get collections
         const getCollectionsUrl = URL + "?workspace=" + workspaceId;
