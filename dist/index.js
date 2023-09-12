@@ -9764,14 +9764,13 @@ class Postman {
             'X-API-Key': this.postmanApiKey
         };
 
-
         const files = postmanFile.split(' ');
 
         for (const file of files) {
 
             if (this.isJsonFile(file)) {
 
-                let create = true;
+                var create = true;
                 let collectionId = -1;
 
                 lib_axios.get(getCollectionsUrl, { headers })
@@ -9796,12 +9795,12 @@ class Postman {
             }
         }
 
-        console.log(external_domain_namespaceObject.create)
-        // if(create) {
-        //     this.createCollection(postmanFile, workspaceId);
-        // } else {
-        //     this.updateCollection(postmanFile, collectionId);
-        // }
+        console.log(create)
+        if(create) {
+            this.createCollection(postmanFile, workspaceId);
+        } else {
+            this.updateCollection(postmanFile, collectionId);
+        }
 
     }
 
