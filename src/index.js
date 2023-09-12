@@ -63,14 +63,14 @@ async function init () {
     }
 }
 
-function updateCollection(postmanApiKey, postmanFile, collectionId) {
+async function updateCollection(postmanApiKey, postmanFile, collectionId) {
     new Postman(postmanApiKey).updateCollection(postmanFile, collectionId);
 }
 
-function createCollection(postmanApiKey, postmanFile, workspaceId) {
+async function createCollection(postmanApiKey, postmanFile, workspaceId) {
     new Postman(postmanApiKey).createCollection(postmanFile, workspaceId);
 }
 
-function createOrUpdateCollection(postmanApiKey, postmanFile, workspaceId) {
+async function createOrUpdateCollection(postmanApiKey, postmanFile, workspaceId) {
     new Postman(postmanApiKey).createOrUpdateCollection(postmanFile, workspaceId);
 }

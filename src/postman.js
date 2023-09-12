@@ -75,7 +75,7 @@ export class Postman {
 
     }
 
-    createOrUpdateCollection(postmanFile, workspaceId) {
+    async createOrUpdateCollection(postmanFile, workspaceId) {
 
         // get title
         const json = this.loadJson(postmanFile);
@@ -104,7 +104,7 @@ export class Postman {
                 var create = true;
                 var collectionId = -1;
 
-                axios
+                await axios
                     .get(URL, config)
                     .then((response) => {
                         if (response.status === 200) {
