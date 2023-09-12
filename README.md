@@ -6,11 +6,17 @@ The GitHub action to push your collections to Postman.com.
 
 Add the push-to-postman action and set the required inputs
 
-* `goal`: create, update
+* `goal`: create, update, createOrUpdate
 * `postman-key`: your Postman API key
 * `postman-file`: your Postman json file(s)
 * `workspace-id`: your Postman workspace id. Required only for `create` goal
 * `collection-id`: your Postman collection id. Required only for `update` goal
+
+### Goals
+
+`create` always creates a new collection (in a given workspace)
+`update` updates an existing collection (given its id)
+`createOrUpdate` update an existing collection when the title matches, otherwise it creates a new one
 
 ### Create new collection
 
