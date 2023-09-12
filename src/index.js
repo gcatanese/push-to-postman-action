@@ -54,7 +54,7 @@ async function init () {
         } else if (goal == 'createOrUpdate') {
             createOrUpdateCollection(postmanApiKey, postmanFile, collectionId);
         } else {
-            throw new Error("Unrecognised goal: " + goal);
+            throw new Error("Unrecognised goal " + goal);
         }
 
     } catch (error) {
