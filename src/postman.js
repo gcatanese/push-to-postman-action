@@ -85,7 +85,7 @@ export class Postman {
         const json = this.loadJson(postmanFile);
 
         const title = json.info.name;
-        console.log("title " + title)
+        console.log("Collection title " + title)
 
         // get collections
         const getCollectionsUrl = URL + "?workspace=" + workspaceId;
@@ -95,7 +95,7 @@ export class Postman {
                 'X-API-Key': this.postmanApiKey,
             },
         };
-  
+
 
         const files = postmanFile.split(' ');
 

@@ -12,7 +12,7 @@ async function init () {
         if(!goal) {
             throw new Error("Missing input goal");
         }
-        console.log("goal->" + goal)
+        console.log("Running " + goal)
 
         if (goal !== "create" && goal !== "update" && goal !== "createOrUpdate") {
             throw new Error("Unsupported goal: " + goal);
