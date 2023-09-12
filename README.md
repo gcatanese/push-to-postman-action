@@ -48,9 +48,13 @@ Update existing Postman collection using `workflow_dispatch`
         collection-id: ${{ github.event.inputs.collectionId }}
 ```
 
-### Create new collection after git push
+### Create or update a collection after git push
 
-Create new Postman collection on `push`
+Create or update Postman collections on `push`
+
+For each JSON file that has changed the workflow will try to update the collection with
+the same name. When there is no match a new collection is created.  
+It requires passing the `workspaceId`.
 
 ```yaml
 on: 
@@ -77,7 +81,7 @@ jobs:
         id: push-to-postman
         uses: gcatanese/push-to-postman-action@main
         with:
-          goal: create
+          goal: createOrUpdate
           postman-key: ${{ secrets.POSTMAN_API_KEY }}
           postman-file: ${{ steps.changed-json-files.outputs.all_changed_and_modified_files }}
           workspace-id: ${{ secrets.POSTMAN_WORKSPACE_ID }}
