@@ -9890,15 +9890,15 @@ async function init () {
     }
 }
 
-async function updateCollection(postmanApiKey, postmanFile, collectionId) {
+function updateCollection(postmanApiKey, postmanFile, collectionId) {
     new Postman(postmanApiKey).updateCollection(postmanFile, collectionId);
 }
 
-async function createCollection(postmanApiKey, postmanFile, workspaceId) {
+function createCollection(postmanApiKey, postmanFile, workspaceId) {
     new Postman(postmanApiKey).createCollection(postmanFile, workspaceId);
 }
 
-async function createOrUpdateCollection(postmanApiKey, postmanFile, workspaceId) {
+function createOrUpdateCollection(postmanApiKey, postmanFile, workspaceId) {
     new Postman(postmanApiKey).createOrUpdateCollection(postmanFile, workspaceId);
 }
 
