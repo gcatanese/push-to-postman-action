@@ -25,7 +25,7 @@ jobs:
         id: push-to-postman
         uses: gcatanese/push-to-postman-action@main
         with:
-          goal: create
+          goal: createOrUpdate
           postman-key: ${{ secrets.POSTMAN_API_KEY }}
           postman-file: ${{ github.event.inputs.postmanFile }}
           workspace-id: ${{ github.event.inputs.workspaceId }}
