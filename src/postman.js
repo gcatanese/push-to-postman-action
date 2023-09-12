@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { create } from 'domain';
 import fs from "fs";
 
 const URL = "https://api.getpostman.com/collections";
@@ -68,24 +69,90 @@ export class Postman {
                     .catch(error => {
                         throw error;
                     })
-                } else {
-                    console.log("Skip " + file);
-                }
-    
+            } else {
+                console.log("Skip " + file);
+            }
+
         }
 
     }
+
+    createOrUpdateCollection(postmanFile, collectionId) {
+
+        console.log("createOrUpdateCollection");
+
+        // get title
+        const json = this.loadJson(postmanFile);
+
+        const title = json.info.name;
+        console.log("Collection title " + title)
+
+        // get collections
+        const getCollectionsUrl = URL + "?workspace=" + workspaceId;
+
+        const config = {
+            headers: {
+                'X-API-Key': this.postmanApiKey,
+            },
+        };
+
+
+        const files = postmanFile.split(' ');
+
+        for (const file of files) {
+
+            if (this.isJsonFile(file)) {
+
+                let create = true;
+                let collectionId = -1;
+
+                axios
+                    .get(getCollectionsUrl, { config })
+                    .then((response) => {
+                        if (response.status === 200) {
+                            const collections = response.data.collections;
+                            collections.forEach((collection) => {
+                                if(collection.name == title) {
+                                    create = false;
+                                    collectionId = collection.uid
+                                }
+                                console.log(`Collection Name: ${collection.name}`);
+                                console.log(`Collection ID: ${collection.uid}`);
+                            });
+                        } else {
+                            throw error('Error retrieving collections:', response.statusText);
+                        }
+                    })
+                    .catch((error) => {
+                        throw error;
+                    });
+            }
+        }
+
+        console.log(create)
+        // if(create) {
+        //     this.createCollection(postmanFile, workspaceId);
+        // } else {
+        //     this.updateCollection(postmanFile, collectionId);
+        // }
+
+    }
+
 
     isJsonFile(file) {
         return file.endsWith(".json");
     }
 
     getFileAsJson(postmanFile) {
-        const collection = JSON.parse(fs.readFileSync(postmanFile, 'utf8'));
+        const collection = this.loadJson(postmanFile);
         return JSON.stringify({
             "collection": collection,
         });
 
+    }
+
+    loadJson(postmanFile) {
+        return JSON.parse(fs.readFileSync(postmanFile, 'utf8'));
     }
 }
 

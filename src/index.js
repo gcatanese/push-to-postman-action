@@ -12,6 +12,11 @@ async function init () {
         if(!goal) {
             throw new Error("Missing input goal");
         }
+        console.log("Running " + goal)
+
+        if (goal !== "create" && goal !== "update" && goal !== "createOrUpdate") {
+            throw new Error("Unsupported goal: " + goal);
+        }
 
         const postmanApiKey = core.getInput('postman-key');
         if(!postmanApiKey) {
@@ -31,6 +36,10 @@ async function init () {
         const workspaceId = core.getInput('workspace-id');
         const collectionId = core.getInput('collection-id');
 
+        if(goal == 'createOrUpdate' && !workspaceId) {
+            throw new Error("Goal <createOrUpdate> requires workspace-id");
+        }
+
         if(goal == 'create' && !workspaceId) {
             throw new Error("Goal <create> requires workspace-id");
         }
@@ -43,8 +52,10 @@ async function init () {
             createCollection(postmanApiKey, postmanFile, workspaceId);
         } else if (goal == 'update') {
             updateCollection(postmanApiKey, postmanFile, collectionId);
+        } else if (goal == 'createOrUpdate') {
+            createOrUpdateCollection(postmanApiKey, postmanFile, collectionId);
         } else {
-            throw new Error("Unrecognised goal: " + goal);
+            throw new Error("Unrecognised goal " + goal);
         }
 
     } catch (error) {
@@ -60,3 +71,6 @@ async function createCollection(postmanApiKey, postmanFile, workspaceId) {
     new Postman(postmanApiKey).createCollection(postmanFile, workspaceId);
 }
 
+async function createOrUpdateCollection(postmanApiKey, postmanFile, workspaceId) {
+    new Postman(postmanApiKey).createOrUpdateCollection(postmanFile, workspaceId);
+}
