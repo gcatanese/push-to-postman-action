@@ -13,8 +13,6 @@ export class Postman {
 
         console.log("Pushing (post) to Postman..");
 
-        const createCollectionUrl = URL;
-
         const config = {
             params: {
                 'workspace': workspaceId,
@@ -31,7 +29,7 @@ export class Postman {
 
             if (this.isJsonFile(file)) {
                 axios
-                    .post(createCollectionUrl, this.getFileAsJson(file), config)
+                    .post(URL, this.getFileAsJson(file), config)
                     .then(res => {
                         console.log(res.data)
                     })
@@ -49,8 +47,6 @@ export class Postman {
 
         console.log("Pushing (put) to Postman..");
 
-        const updateCollectionUrl = URL + "/" + collectionId;
-
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -64,7 +60,7 @@ export class Postman {
 
             if (this.isJsonFile(file)) {
                 axios
-                    .put(updateCollectionUrl, this.getFileAsJson(file), config)
+                    .put(URL + "/" + collectionId, this.getFileAsJson(file), config)
                     .then(res => {
                         console.log(res.data)
                     })
@@ -87,12 +83,17 @@ export class Postman {
         const title = json.info.name;
         console.log("Collection title: " + title)
 
-        // get collections
-        const getCollectionsUrl = URL + "?workspace=" + workspaceId;
+        // get all collections
 
-        const headers = {
-            'X-API-Key': this.postmanApiKey
+        const config = {
+            params: {
+                'workspace': workspaceId,
+            },
+            headers: {
+                'X-API-Key': this.postmanApiKey,
+            },
         };
+
 
         const files = postmanFile.split(' ');
 
@@ -101,10 +102,10 @@ export class Postman {
             if (this.isJsonFile(file)) {
 
                 var create = true;
-                let collectionId = -1;
+                var collectionId = -1;
 
                 axios
-                    .get(getCollectionsUrl, { headers })
+                    .get(URL, config)
                     .then((response) => {
                         if (response.status === 200) {
                             const collections = response.data.collections;
