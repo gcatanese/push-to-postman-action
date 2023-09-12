@@ -9667,12 +9667,9 @@ axios.default = axios;
 // this module should only have a default export
 /* harmony default export */ const lib_axios = (axios);
 
-;// CONCATENATED MODULE: external "domain"
-const external_domain_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("domain");
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(7147);
 ;// CONCATENATED MODULE: ./src/postman.js
-
 
 
 
@@ -9692,7 +9689,7 @@ class Postman {
 
         const config = {
             params: {
-                workspace: 'workspaceId'
+                'workspace': workspaceId,
             },
             headers: {
                 'Content-Type': 'application/json',
