@@ -9,7 +9,7 @@ Add the push-to-postman action and set the required inputs
 * `goal`: create, update, createOrUpdate
 * `postman-key`: your Postman API key
 * `postman-file`: your Postman json file(s)
-* `workspace-id`: your Postman workspace id. Required only for `create` goal
+* `workspace-id`: your Postman workspace id. Required only for `create` and `createOrUpdate` goals
 * `collection-id`: your Postman collection id. Required only for `update` goal
 
 ### Goals
