@@ -9778,7 +9778,7 @@ class Postman {
                         if (response.status === 200) {
                             const collections = response.data.collections;
                             collections.forEach((collection) => {
-                                if(collection.name == title) {
+                                if(collection.name === title) {
                                     create = false;
                                     collectionId = collection.uid
                                 }
