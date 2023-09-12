@@ -9667,9 +9667,12 @@ axios.default = axios;
 // this module should only have a default export
 /* harmony default export */ const lib_axios = (axios);
 
+;// CONCATENATED MODULE: external "domain"
+const external_domain_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("domain");
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(7147);
 ;// CONCATENATED MODULE: ./src/postman.js
+
 
 
 
@@ -9738,24 +9741,89 @@ class Postman {
                     .catch(error => {
                         throw error;
                     })
-                } else {
-                    console.log("Skip " + file);
-                }
-    
+            } else {
+                console.log("Skip " + file);
+            }
+
         }
 
     }
+
+    createOrUpdateCollection(postmanFile, collectionId) {
+
+        console.log("createOrUpdateCollection");
+
+        // get title
+        const json = this.loadJson(postmanFile);
+
+        const title = json.info.name;
+        console.log("Collection title " + title)
+
+        // get collections
+        const getCollectionsUrl = postman_URL + "?workspace=" + workspaceId;
+
+        const config = {
+            headers: {
+                'X-API-Key': this.postmanApiKey,
+            },
+        };
+
+
+        const files = postmanFile.split(' ');
+
+        for (const file of files) {
+
+            if (this.isJsonFile(file)) {
+
+                let create = true;
+                let collectionId = -1;
+
+                lib_axios.get(getCollectionsUrl, { config })
+                    .then((response) => {
+                        if (response.status === 200) {
+                            const collections = response.data.collections;
+                            collections.forEach((collection) => {
+                                if(collection.name == title) {
+                                    create = false;
+                                    collectionId = collection.uid
+                                }
+                                console.log(`Collection Name: ${collection.name}`);
+                                console.log(`Collection ID: ${collection.uid}`);
+                            });
+                        } else {
+                            throw error('Error retrieving collections:', response.statusText);
+                        }
+                    })
+                    .catch((error) => {
+                        throw error;
+                    });
+            }
+        }
+
+        console.log(external_domain_namespaceObject.create)
+        // if(create) {
+        //     this.createCollection(postmanFile, workspaceId);
+        // } else {
+        //     this.updateCollection(postmanFile, collectionId);
+        // }
+
+    }
+
 
     isJsonFile(file) {
         return file.endsWith(".json");
     }
 
     getFileAsJson(postmanFile) {
-        const collection = JSON.parse(external_fs_.readFileSync(postmanFile, 'utf8'));
+        const collection = this.loadJson(postmanFile);
         return JSON.stringify({
             "collection": collection,
         });
 
+    }
+
+    loadJson(postmanFile) {
+        return JSON.parse(external_fs_.readFileSync(postmanFile, 'utf8'));
     }
 }
 
@@ -9774,6 +9842,11 @@ async function init () {
         const goal = core.getInput('goal');
         if(!goal) {
             throw new Error("Missing input goal");
+        }
+        console.log("Running " + goal)
+
+        if (goal !== "create" && goal !== "update" && goal !== "createOrUpdate") {
+            throw new Error("Unsupported goal: " + goal);
         }
 
         const postmanApiKey = core.getInput('postman-key');
@@ -9794,6 +9867,10 @@ async function init () {
         const workspaceId = core.getInput('workspace-id');
         const collectionId = core.getInput('collection-id');
 
+        if(goal == 'createOrUpdate' && !workspaceId) {
+            throw new Error("Goal <createOrUpdate> requires workspace-id");
+        }
+
         if(goal == 'create' && !workspaceId) {
             throw new Error("Goal <create> requires workspace-id");
         }
@@ -9806,8 +9883,10 @@ async function init () {
             createCollection(postmanApiKey, postmanFile, workspaceId);
         } else if (goal == 'update') {
             updateCollection(postmanApiKey, postmanFile, collectionId);
+        } else if (goal == 'createOrUpdate') {
+            createOrUpdateCollection(postmanApiKey, postmanFile, collectionId);
         } else {
-            throw new Error("Unrecognised goal: " + goal);
+            throw new Error("Unrecognised goal " + goal);
         }
 
     } catch (error) {
@@ -9823,6 +9902,9 @@ async function createCollection(postmanApiKey, postmanFile, workspaceId) {
     new Postman(postmanApiKey).createCollection(postmanFile, workspaceId);
 }
 
+async function createOrUpdateCollection(postmanApiKey, postmanFile, workspaceId) {
+    new Postman(postmanApiKey).createOrUpdateCollection(postmanFile, workspaceId);
+}
 
 })();
 
