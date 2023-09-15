@@ -1,5 +1,5 @@
 name: 'Push to Postman'
-description: 'Github action to push collections to Postman directly from your workflow
+description: 'Github action to push collections to Postman directly from your workflow'
 inputs:
   goal:
     description: 'Action to perform (create, update, createOrUpdate, etc..)'
