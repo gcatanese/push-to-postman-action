@@ -86,3 +86,5 @@ jobs:
           postman-file: ${{ steps.changed-json-files.outputs.all_changed_and_modified_files }}
           workspace-id: ${{ secrets.POSTMAN_WORKSPACE_ID }}
 ```
+
+Sample workflows on [push-to-postman-action-test](https://github.com/gcatanese/push-to-postman-action-test) repo.
