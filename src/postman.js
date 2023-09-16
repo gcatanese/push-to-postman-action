@@ -125,7 +125,6 @@ export class Postman {
             }
         }
 
-        console.log(create)
         if(create) {
             this.createCollection(postmanFile, workspaceId);
         } else {
